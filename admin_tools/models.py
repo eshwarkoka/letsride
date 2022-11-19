@@ -1,8 +1,16 @@
+import random
 from django.db import models
 from datetime import datetime
 
 
-class AccountType:
+class BaseModel(models.Model):
+    objects = models.Manager()
+
+    class Meta:
+        abstract = True
+
+
+class AccountTypes:
     RIDER = 'rider'
     REQUESTER = 'requester'
 
@@ -12,21 +20,22 @@ class AccountType:
     )
 
 
-class Account(models.Model):
+class Account(BaseModel):
     """
     An account details for a Rider or Transport Requester
     """
-    user_id = models.IntegerField(unique=True)
+    user_id = models.IntegerField(primary_key=True)
     user_name = models.CharField(max_length=50)
     user_email = models.CharField(max_length=50)
-    account_type = models.CharField(max_length=20, choices=AccountType.ACCOUNT_TYPES, null=False)
+    account_type = models.CharField(max_length=20, choices=AccountTypes.ACCOUNT_TYPES, null=False)
     # Date/Time when this row was created
     created_at = models.DateTimeField(auto_now_add=True)
     # Date/Time when this row was modified
     modified_at = models.DateTimeField(auto_now=True)
 
-    def to_dict(self):
-        return self.__dict__
+    def save(self, *args, **kwargs):
+        self.user_id = random.randint(10**7, 10**8-1)
+        super(Account, self).save(*args, **kwargs)
 
 
 class TravelMediums:
@@ -52,7 +61,7 @@ class RiderTravelStatuses:
     )
 
 
-class RiderInfo(models.Model):
+class RiderTravelInfo(BaseModel):
     """
     Rider Requests (or) Rider Travel information will be stored in this table
     """
@@ -115,7 +124,7 @@ class TransportRequestStatuses:
     )
 
 
-class TransportationRequests(models.Model):
+class TransportationRequests(BaseModel):
     """
     This will have transport requests created by the Requester
     """
