@@ -30,3 +30,15 @@ class GetTransportRequests(View):
             request_body = None
         response = RequesterUtils.get_transport_requests(user_id=user_id, request_body=request_body)
         return response
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class RequestRider(View):
+    """
+    Requester can request the Rider using this API
+    """
+    def post(self, request):
+        request_id = request.GET.get('request_id') or None
+        rider_travel_info_id = request.GET.get('rider_travel_info_id') or None
+        response = RequesterUtils.request_rider(request_id=request_id, rider_travel_info_id=rider_travel_info_id)
+        return response

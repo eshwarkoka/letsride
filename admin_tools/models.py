@@ -51,14 +51,12 @@ class TravelMediums:
 
 class RiderTravelStatuses:
     AVAILABLE = 'available'
-    ACCEPTED = 'accepted'
-    REJECTED = 'rejected'
+    UNAVAILABLE = 'unavailable'
     EXPIRED = 'expired'
 
     RIDER_TRAVEL_STATUSES = (
         (AVAILABLE, 'available'),
-        (ACCEPTED, 'accepted'),
-        (REJECTED, 'rejected'),
+        (UNAVAILABLE, 'unavailable'),
         (EXPIRED, 'expired')
     )
 

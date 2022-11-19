@@ -1,7 +1,8 @@
 from http import HTTPStatus
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from admin_tools.models import AssetTypes, AssetSensitivities, TransportationRequests
+from admin_tools.models import AssetTypes, AssetSensitivities, TransportationRequests, RequestsMapping, \
+    RequestsMappingStatuses
 from admin_tools import commons
 from requester import const
 
@@ -156,3 +157,37 @@ class RequesterUtils:
             'message': 'data fetched successfully',
             'data': transport_requests_objects
         })
+
+    @staticmethod
+    def request_rider(request_id, rider_travel_info_id):
+        """
+        Requester to Request for package
+        """
+        # check if request id is valid
+        status, request_id_obj = commons.validate_requester_request_id(request_id=request_id)
+        if not status:
+            return JsonResponse({
+                'status': 'failure',
+                'message': f'invalid request id: {request_id}'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        # check if rider travel info id is valid
+        status, rider_travel_info_obj = commons.validate_rider_travel_info_id(
+            rider_travel_info_id=rider_travel_info_id)
+        if not status:
+            return JsonResponse({
+                'status': 'failure',
+                'message': f'invalid rider travel info id: {rider_travel_info_id}'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        # add request mapping to the DB
+        new_rider_request = RequestsMapping.objects.create(
+            travel_info=rider_travel_info_obj,
+            request_info=request_id_obj,
+            status=RequestsMappingStatuses.REQUESTED
+        )
+        return JsonResponse({
+            'status': 'success',
+            'message': f'successfully requested the rider',
+            'data': model_to_dict(new_rider_request)
+        }, status=HTTPStatus.CREATED)
