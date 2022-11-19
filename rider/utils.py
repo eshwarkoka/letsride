@@ -1,7 +1,8 @@
 from http import HTTPStatus
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from admin_tools.models import TravelMediums, RiderTravelInfo, RiderTravelStatuses
+from admin_tools.models import TravelMediums, RiderTravelInfo, RiderTravelStatuses, RequestsMapping, \
+    RequestsMappingStatuses
 from admin_tools import commons
 from rider import const
 
@@ -130,4 +131,92 @@ class RiderUtils:
             'status': 'success',
             'message': 'data fetched successfully',
             'data': travel_info_objects
+        })
+
+    @staticmethod
+    def check_requests(user_id):
+        """
+        Check or Get rider requests (requested by Requester)
+        """
+        # check if user is valid
+        status, user_obj = commons.validate_user(user_id=user_id)
+        if not status:
+            return JsonResponse({
+                'status': 'failure',
+                'message': f'invalid user id'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        rider_travel_info_obj = RiderTravelInfo.objects.filter(user=user_obj, status=RiderTravelStatuses.AVAILABLE)
+        if not rider_travel_info_obj:
+            return JsonResponse({
+                'status': 'failure',
+                'message': f'rider travel info is not available'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        requests_mapping_obj = RequestsMapping.objects.filter(travel_info=rider_travel_info_obj,
+                                                              status=RequestsMappingStatuses.REQUESTED)
+
+        if not requests_mapping_obj:
+            return JsonResponse({
+                'status': 'failure',
+                'message': 'no requests found for the rider'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        return JsonResponse({
+            'status': 'success',
+            'message': 'data fetched successfully',
+            'data': list(requests_mapping_obj.values())
+        })
+
+    @staticmethod
+    def update_request(request_body):
+        """
+        Rider can accept or reject the requests he received
+        """
+        request_id = request_body.get('request_id') or None
+        rider_travel_info_id = request_body.get('rider_travel_info_id') or None
+        new_status = request_body.get('status') or None
+
+        if not (request_id and rider_travel_info_id and new_status):
+            return JsonResponse({
+                'status': 'failure',
+                'message': 'required details missing!'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        status, request_info_obj = commons.validate_requester_request_id(request_id=request_id)
+        if not status:
+            return JsonResponse({
+                'status': 'failure',
+                'message': 'invalid request id'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        status, travel_info_obj = commons.validate_rider_travel_info_id(rider_travel_info_id=rider_travel_info_id)
+        if not status:
+            return JsonResponse({
+                'status': 'failure',
+                'message': 'invalid rider travel info id'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        valid_update_statuses = list(dict(RequestsMappingStatuses.REQUEST_MAPPING_STATUSES).keys())
+        if new_status not in valid_update_statuses:
+            return JsonResponse({
+                'status': 'failure',
+                'message': 'invalid status received'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        request_mapping_obj = RequestsMapping.objects.filter(travel_info=travel_info_obj,
+                                                             request_info=request_info_obj)
+        if not request_mapping_obj:
+            return JsonResponse({
+                'status': 'failure',
+                'message': 'no requests found!'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        new_request_mapping_obj = RequestsMapping.objects.filter(
+            travel_info=travel_info_obj, request_info=request_info_obj).update(status=new_status)
+
+        return JsonResponse({
+            'status': 'success',
+            'message': 'status updated successfully',
+            'data': list(new_request_mapping_obj.values())
         })

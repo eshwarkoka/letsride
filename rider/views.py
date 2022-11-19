@@ -29,3 +29,26 @@ class GetRiderTravelInfo(View):
             request_body = None
         response = RiderUtils.get_rider_travel_info(request_body=request_body)
         return response
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class CheckRequests(View):
+    """
+    Rider can check the requests he received from the Receiver
+    """
+    def get(self, request):
+        # use get api to check the requests
+        user_id = request.GET.get('user_id') or None
+        response = RiderUtils.check_requests(user_id=user_id)
+        return response
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class UpdateRequest(View):
+    """
+    Rider can update (accept/reject) the requests he received from the Receiver
+    """
+    def post(self, request):
+        request_body = json.loads(request.body)
+        response = RiderUtils.update_request(request_body=request_body)
+        return response
