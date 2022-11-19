@@ -69,7 +69,7 @@ class RiderTravelInfo(BaseModel):
     Rider Requests (or) Rider Travel information will be stored in this table
     """
     travel_info_id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
     from_address = models.TextField()
     to_address = models.TextField()
     date_and_time = models.DateTimeField(null=True)
@@ -141,7 +141,7 @@ class TransportationRequests(BaseModel):
     This will have transport requests created by the "Requester"
     """
     request_id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
     from_address = models.TextField()
     to_address = models.TextField()
     date_and_time = models.DateTimeField(null=True)

@@ -11,8 +11,9 @@ class AddRiderTravelInfo(View):
     View to add rider info details
     """
     def post(self, request):
+        user_id = request.GET.get('user_id') or None
         request_body = json.loads(request.body)
-        response = RiderUtils().add_rider_travel_info(request_body=request_body)
+        response = RiderUtils().add_rider_travel_info(user_id=user_id, request_body=request_body)
         return response
 
 
@@ -22,6 +23,9 @@ class GetRiderTravelInfo(View):
     View to add rider info details
     """
     def post(self, request):
-        request_body = json.loads(request.body)
-        response = RiderUtils().get_rider_travel_info(request_body=request_body)
+        try:
+            request_body = json.loads(request.body)
+        except Exception:
+            request_body = None
+        response = RiderUtils.get_rider_travel_info(request_body=request_body)
         return response
