@@ -1,0 +1,1008 @@
+{
+	"info": {
+		"_postman_id": "16a08eeb-7777-47c6-afec-f011bea33a3b",
+		"name": "Lets Ride NxtWave",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Create Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\": \"eshwar requester\",\n    \"user_email\": \"testing@gmail.com\",\n    \"account_type\": \"requester\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/account/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"account",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_name\": \"Eshwar2\",\n    \"user_email\": \"testing@email.com\",\n    \"account_type\": \"rider\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/account/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"account",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"account created successfully with user_id: 90076328\",\n    \"data\": {\n        \"user_id\": 90076328,\n        \"user_name\": \"Eshwar2\",\n        \"user_email\": \"testing@email.com\",\n        \"account_type\": \"rider\"\n    }\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_name\": \"Eshwar2\",\n    \"user_email\": \"testing@email.com\",\n    \"account_type\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/account/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"account",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"failure\",\n    \"message\": \"user name or user email or account_type is empty\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/account/delete?user_ids=[12345, 1234556, 63897929, 60904859]",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"account",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "user_ids",
+									"value": "[12345, 1234556, 63897929, 60904859]"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/account/delete?user_ids=[12345, 1234556, 90076328]",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"account",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "user_ids",
+											"value": "[12345, 1234556, 90076328]"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"deleted user ids: [90076328]\"\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/account/delete?user_ids=[12345, 1234556]",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"account",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "user_ids",
+											"value": "[12345, 1234556]"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"deleted user ids: []\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Rider",
+			"item": [
+				{
+					"name": "Add Travel Info",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from_address\": \"hyderabad\",\n    \"to_address\": \"mumbai\",\n    \"date_and_time\": \"2022-11-20 11:00\",\n    \"flexible\": false,\n    \"travel_medium\": \"bus\",\n    \"asset_quantity\": \"6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/rider/add_travel_info?user_id=57760729",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"rider",
+								"add_travel_info"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "57760729"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"from_address\": \"hyderabad\",\n    \"to_address\": \"mumbai\",\n    \"date_and_time\": \"19-Nov-2022 10:00:00\",\n    \"flexible\": true,\n    \"travel_medium\": \"bus\",\n    \"asset_quantity\": \"6\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/add_travel_info?user_id=41093707",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"add_travel_info"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "41093707"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"new rider travel info added\",\n    \"data\": {\n        \"travel_info_id\": 94256214,\n        \"user\": 18397570,\n        \"from_address\": \"hyderabad\",\n        \"to_address\": \"mumbai\",\n        \"date_and_time\": \"2006-10-25T11:00:00\",\n        \"flexible\": false,\n        \"travel_medium\": \"bus\",\n        \"asset_quantity\": \"6\"\n    }\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"from_address\": \"hyderabad\",\n    \"to_address\": \"mumbai\",\n    \"date_and_time\": \"19-Nov-2022\",\n    \"flexible\": true,\n    \"travel_medium\": \"bus\",\n    \"asset_quantity\": \"6\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/add_travel_info?user_id=41093707",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"add_travel_info"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "41093707"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"failure\",\n    \"message\": \"Exception: time data '19-Nov-2022' does not match format '%d-%b-%Y %H:%M:%S'\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Travel Info",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"filters\": {\n        \"to_address\": \"mumbai\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/rider/get_travel_info",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"rider",
+								"get_travel_info"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"filters\": {\n        \"to_address\": \"delhi\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/get_travel_info",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"get_travel_info"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"data fetched successfully\",\n    \"data\": [\n        {\n            \"travel_info_id\": 57191183,\n            \"user_id\": 18397570,\n            \"from_address\": \"hyderabad\",\n            \"to_address\": \"delhi\",\n            \"date_and_time\": \"2006-10-25T11:00:00Z\",\n            \"flexible\": false,\n            \"travel_medium\": \"bus\",\n            \"asset_quantity\": 6,\n            \"created_at\": \"2022-11-19T14:38:38.153Z\",\n            \"modified_at\": \"2022-11-19T14:38:38.153Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"filters\": {\n        \"to_address\": \"delhi\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/get_travel_info",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"get_travel_info"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"data fetched successfully\",\n    \"data\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Check Requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/rider/check_requests?user_id=57760729",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"rider",
+								"check_requests"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "57760729"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/check_requests?user_id=12345",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"check_requests"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "12345"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"data fetched successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"travel_info_id\": 67504976,\n            \"request_info_id\": 99978118,\n            \"status\": \"requested\",\n            \"created_at\": \"2022-11-19T19:12:14.596Z\",\n            \"modified_at\": \"2022-11-19T19:12:14.596Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/check_requests?user_id=12345",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"check_requests"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "12345"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"failure\",\n    \"message\": \"no requests found for the rider\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request_id\": \"79456537\",\n    \"rider_travel_info_id\": \"85895954\",\n    \"status\": \"accepted\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/rider/update_request",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"rider",
+								"update_request"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request_id\": \"\",\n    \"rider_travel_info_id\": \"\",\n    \"status\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/update_request",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"update_request"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"status updated successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"travel_info_id\": 67504976,\n            \"request_info_id\": 99978118,\n            \"status\": \"accepted\",\n            \"created_at\": \"2022-11-19T19:12:14.596Z\",\n            \"modified_at\": \"2022-11-19T19:12:14.596Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request_id\": \"\",\n    \"rider_travel_info_id\": \"\",\n    \"status\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/rider/update_request",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"rider",
+										"update_request"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"failure\",\n    \"message\": \"required details missing!\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Requester",
+			"item": [
+				{
+					"name": "Add Transport Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from_address\": \"hyderabad\",\n    \"to_address\": \"mumbai\",\n    \"date_and_time\": \"2022-11-20 14:00\",\n    \"flexible\": false,\n    \"asset_quantity\": 4,\n    \"asset_type\": \"laptop\",\n    \"asset_sensitivity\": \"sensitive\",\n    \"whom_to_deliver\": \"eshwar 81684628273\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/requester/add_transport_request?user_id=52341394",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"requester",
+								"add_transport_request"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "52341394"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"from_address\": \"hyderabad\",\n    \"to_address\": \"mumbai\",\n    \"date_and_time\": \"2022-11-20 14:00\",\n    \"flexible\": false,\n    \"asset_quantity\": 4,\n    \"asset_type\": \"laptop\",\n    \"asset_sensitivity\": \"sensitive\",\n    \"whom_to_deliver\": \"eshwar 81684628273\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/requester/add_transport_request?user_id=19752630",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"requester",
+										"add_transport_request"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "19752630"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"new transport request added\",\n    \"data\": {\n        \"request_id\": 18989050,\n        \"user\": 19752630,\n        \"from_address\": \"hyderabad\",\n        \"to_address\": \"mumbai\",\n        \"date_and_time\": \"2022-11-20T14:00:00\",\n        \"flexible\": false,\n        \"asset_quantity\": 4,\n        \"asset_type\": \"laptop\",\n        \"asset_sensitivity\": \"sensitive\",\n        \"whom_to_deliver\": \"eshwar 81684628273\",\n        \"status\": \"pending\"\n    }\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"from_address\": \"hyderabad\",\n    \"to_address\": \"mumbai\",\n    \"date_and_time\": \"2022-11-20 14:00\",\n    \"flexible\": false,\n    \"asset_quantity\": 4,\n    \"asset_type\": \"laptop\",\n    \"asset_sensitivity\": \"sensitive\",\n    \"whom_to_deliver\": \"eshwar 81684628273\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/requester/add_transport_request?user_id=19752630",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"requester",
+										"add_transport_request"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "19752630"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"failure\",\n    \"message\": \"asset type is not valid!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Transport Requests",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/requester/get_transport_requests?user_id=52341394",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"requester",
+								"get_transport_requests"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "52341394"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"filters\": {\n        \"from_address\": \"\",\n        \"to_address\": \"\",\n        \"date_and_time\": \"\",\n        \"flexible\": \"\",\n        \"asset_quantity\": \"\",\n        \"asset_type\": \"\",\n        \"asset_sensitivity\": \"\",\n        \"whom_to_deliver\": \"\",\n        \"status\": \"\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/requester/get_transport_requests?user_id=19752630",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"requester",
+										"get_transport_requests"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "19752630"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"data fetched successfully\",\n    \"data\": [\n        {\n            \"request_id\": 18989050,\n            \"user_id\": 19752630,\n            \"from_address\": \"hyderabad\",\n            \"to_address\": \"mumbai\",\n            \"date_and_time\": \"2022-11-20T14:00:00Z\",\n            \"flexible\": false,\n            \"asset_quantity\": 4,\n            \"asset_type\": \"laptop\",\n            \"asset_sensitivity\": \"sensitive\",\n            \"whom_to_deliver\": \"eshwar 81684628273\",\n            \"status\": \"pending\",\n            \"created_at\": \"2022-11-19T19:36:42.235Z\",\n            \"modified_at\": \"2022-11-19T19:36:42.235Z\"\n        },\n        {\n            \"request_id\": 99978118,\n            \"user_id\": 19752630,\n            \"from_address\": \"hyderabad\",\n            \"to_address\": \"mumbai\",\n            \"date_and_time\": \"2022-11-20T14:00:00Z\",\n            \"flexible\": false,\n            \"asset_quantity\": 4,\n            \"asset_type\": \"laptop\",\n            \"asset_sensitivity\": \"sensitive\",\n            \"whom_to_deliver\": \"eshwar 81684628273\",\n            \"status\": \"pending\",\n            \"created_at\": \"2022-11-19T19:06:26.779Z\",\n            \"modified_at\": \"2022-11-19T19:06:26.779Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"filters\": {\n        \"from_address\": \"\",\n        \"to_address\": \"\",\n        \"date_and_time\": \"\",\n        \"flexible\": \"\",\n        \"asset_quantity\": \"\",\n        \"asset_type\": \"\",\n        \"asset_sensitivity\": \"\",\n        \"whom_to_deliver\": \"\",\n        \"status\": \"\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/requester/get_transport_requests?user_id=19752630",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"requester",
+										"get_transport_requests"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "19752630"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"failure\",\n    \"message\": \"invalid user id\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Request Rider",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/requester/request_rider?request_id=79456537&rider_travel_info_id=85895954",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"requester",
+								"request_rider"
+							],
+							"query": [
+								{
+									"key": "request_id",
+									"value": "79456537"
+								},
+								{
+									"key": "rider_travel_info_id",
+									"value": "85895954"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/requester/request_rider?request_id=99978118&rider_travel_info_id=67504976",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"requester",
+										"request_rider"
+									],
+									"query": [
+										{
+											"key": "request_id",
+											"value": "99978118"
+										},
+										{
+											"key": "rider_travel_info_id",
+											"value": "67504976"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successfully requested the rider\",\n    \"data\": {\n        \"id\": 2,\n        \"travel_info\": 67504976,\n        \"request_info\": 99978118,\n        \"status\": \"requested\"\n    }\n}"
+						},
+						{
+							"name": "failure response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/requester/request_rider?request_id=99978118&rider_travel_info_id=67504976",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"requester",
+										"request_rider"
+									],
+									"query": [
+										{
+											"key": "request_id",
+											"value": "99978118"
+										},
+										{
+											"key": "rider_travel_info_id",
+											"value": "67504976"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"status\": \"failure\",\n    \"message\": \"invalid rider travel info id: 6750497\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
