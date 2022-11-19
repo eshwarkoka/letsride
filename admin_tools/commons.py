@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from admin_tools import const
-from admin_tools.models import Account, TransportationRequests
+from admin_tools.models import Account, TransportationRequests, RiderTravelInfo
 
 
 def validate_user(user_id):
@@ -26,10 +26,10 @@ def validate_rider_travel_info_id(rider_travel_info_id):
     """
     Validates Rider's travel info id and returns RiderTravelInfo object
     """
-    if not (rider_travel_info_id and TransportationRequests.objects.filter(
+    if not (rider_travel_info_id and RiderTravelInfo.objects.filter(
             travel_info_id=rider_travel_info_id).exists()):
         return False, None
-    return True, TransportationRequests.objects.get(travel_info_id=rider_travel_info_id)
+    return True, RiderTravelInfo.objects.get(travel_info_id=rider_travel_info_id)
 
 
 def validate_datetime_from_api(datetime_from_api: str):
