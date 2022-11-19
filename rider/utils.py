@@ -1,7 +1,8 @@
 from http import HTTPStatus
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from admin_tools.models import TravelMediums, RiderTravelInfo
+from admin_tools.models import TravelMediums, RiderTravelInfo, RequestsMapping, RequestsMappingStatuses, \
+    RiderTravelStatuses
 from admin_tools import commons
 from rider import const
 
@@ -104,7 +105,7 @@ class RiderUtils:
         """
         if not request_body:
             # return with all rider travel info
-            travel_info_objects = list(RiderTravelInfo.objects.values())
+            travel_info_objects = list(RiderTravelInfo.objects.filter(status=RiderTravelStatuses.AVAILABLE).values())
             return JsonResponse({
                 'status': 'success',
                 'message': 'data fetched successfully',
@@ -113,7 +114,7 @@ class RiderUtils:
 
         filters = request_body.get('filters') or {}
         if not filters:
-            travel_info_objects = list(RiderTravelInfo.objects.values())
+            travel_info_objects = list(RiderTravelInfo.objects.filter(status=RiderTravelStatuses.AVAILABLE).values())
             return JsonResponse({
                 'status': 'success',
                 'message': 'data fetched successfully',
@@ -123,10 +124,11 @@ class RiderUtils:
         valid_filters = {
             key: value for key, value in filters.items() if key in const.VALID_FILTER_KEYS
         }
+        valid_filters['status'] = RiderTravelStatuses.AVAILABLE
 
-        travel_info_objects = RiderTravelInfo.objects.filter(**valid_filters)
+        travel_info_objects = list(RiderTravelInfo.objects.filter(**valid_filters).values())
         return JsonResponse({
             'status': 'success',
             'message': 'data fetched successfully',
-            'data': list(travel_info_objects.values())
+            'data': travel_info_objects
         })

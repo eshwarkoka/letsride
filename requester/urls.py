@@ -1,7 +1,8 @@
-# from django.conf.urls import url
+from django.urls import path
 from requester import views
 
 urlpatterns = [
-    # url('add_transport_request/', views.AddRiderTravelInfo.as_view()),
-    # url('request_rider/', views.GetRiderTravelInfo.as_view())
+    path('add_transport_request', views.AddRiderTravelInfo.as_view()),
+    path('request_rider', views.GetRiderTravelInfo.as_view()),
+    path('get_requests', views.GetRiderTravelInfo.as_view())
 ]
