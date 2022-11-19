@@ -1,8 +1,7 @@
 from http import HTTPStatus
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from admin_tools.models import TravelMediums, RiderTravelInfo, RequestsMapping, RequestsMappingStatuses, \
-    RiderTravelStatuses
+from admin_tools.models import TravelMediums, RiderTravelInfo, RiderTravelStatuses
 from admin_tools import commons
 from rider import const
 

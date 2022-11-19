@@ -2,30 +2,31 @@ import json
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from rider.utils import RiderUtils
+from requester.utils import RequesterUtils
 
 
 @method_decorator(csrf_exempt, name="dispatch")
-class AddRiderTravelInfo(View):
+class AddTransportRequest(View):
     """
-    View to add rider info details
+    View to add transport request from Requester
     """
     def post(self, request):
         user_id = request.GET.get('user_id') or None
         request_body = json.loads(request.body)
-        response = RiderUtils().add_rider_travel_info(user_id=user_id, request_body=request_body)
+        response = RequesterUtils().add_transport_request(user_id=user_id, request_body=request_body)
         return response
 
 
 @method_decorator(csrf_exempt, name="dispatch")
-class GetRiderTravelInfo(View):
+class GetTransportRequests(View):
     """
-    View to add rider info details
+    Get Transportation Requests of the Requester
     """
     def post(self, request):
+        user_id = request.GET.get('user_id') or None
         try:
             request_body = json.loads(request.body)
         except Exception:
             request_body = None
-        response = RiderUtils.get_rider_travel_info(request_body=request_body)
+        response = RequesterUtils.get_transport_requests(user_id=user_id, request_body=request_body)
         return response
