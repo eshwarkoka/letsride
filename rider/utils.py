@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from admin_tools.models import TravelMediums, RiderTravelInfo, RiderTravelStatuses, RequestsMapping, \
+from admin_tools.models import AccountTypes, TravelMediums, RiderTravelInfo, RiderTravelStatuses, RequestsMapping, \
     RequestsMappingStatuses
 from admin_tools import commons
 from rider import const
@@ -69,6 +69,12 @@ class RiderUtils:
             return JsonResponse({
                 'status': 'failure',
                 'message': f'invalid user id'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        if not user_obj.account_type == AccountTypes.RIDER:
+            return JsonResponse({
+                'status': 'failure',
+                'message': f'only riders can add rider travel info'
             }, status=HTTPStatus.BAD_REQUEST)
 
         status, response = self.validate_request_body(request_body=request_body)
@@ -146,7 +152,7 @@ class RiderUtils:
                 'message': f'invalid user id'
             }, status=HTTPStatus.BAD_REQUEST)
 
-        rider_travel_info_obj = RiderTravelInfo.objects.filter(user=user_obj, status=RiderTravelStatuses.AVAILABLE)
+        rider_travel_info_obj = RiderTravelInfo.objects.get(user=user_obj, status=RiderTravelStatuses.AVAILABLE)
         if not rider_travel_info_obj:
             return JsonResponse({
                 'status': 'failure',

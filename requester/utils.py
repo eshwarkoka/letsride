@@ -2,7 +2,7 @@ from http import HTTPStatus
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from admin_tools.models import AssetTypes, AssetSensitivities, TransportationRequests, RequestsMapping, \
-    RequestsMappingStatuses
+    RequestsMappingStatuses, AccountTypes
 from admin_tools import commons
 from requester import const
 
@@ -82,6 +82,12 @@ class RequesterUtils:
             return JsonResponse({
                 'status': 'failure',
                 'message': f'invalid user id'
+            }, status=HTTPStatus.BAD_REQUEST)
+
+        if not user_obj.account_type == AccountTypes.REQUESTER:
+            return JsonResponse({
+                'status': 'failure',
+                'message': f'only requesters can add transport requests'
             }, status=HTTPStatus.BAD_REQUEST)
 
         status, response = self.validate_request_body(request_body=request_body)
