@@ -2,7 +2,7 @@ from http import HTTPStatus
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from admin_tools.models import AccountTypes, TravelMediums, RiderTravelInfo, RiderTravelStatuses, RequestsMapping, \
-    RequestsMappingStatuses
+    RequestsMappingStatuses, TransportationRequests, TransportRequestStatuses
 from admin_tools import commons
 from rider import const
 
@@ -228,6 +228,9 @@ class RiderUtils:
         if new_status in [RequestsMappingStatuses.ACCEPTED]:
             update_travel_info_obj = RiderTravelInfo.objects.filter(
                 travel_info_id=rider_travel_info_id).update(status=RiderTravelStatuses.UNAVAILABLE)
+
+        # update requester status in TransportationRequests table
+        new_transport_request = TransportationRequests.objects.filter(request_id=request_id).update(status=new_status)
 
         return JsonResponse({
             'status': 'success',
