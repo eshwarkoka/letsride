@@ -215,6 +215,11 @@ class RiderUtils:
         new_request_mapping_obj = RequestsMapping.objects.filter(
             travel_info=travel_info_obj, request_info=request_info_obj).update(status=new_status)
 
+        # now the rider should be unavailable for new requests
+        if new_status in [RequestsMappingStatuses.ACCEPTED]:
+            update_travel_info_obj = RiderTravelInfo.objects.filter(
+                travel_info_obj=rider_travel_info_id).update(status=RiderTravelStatuses.UNAVAILABLE)
+
         return JsonResponse({
             'status': 'success',
             'message': 'status updated successfully',
